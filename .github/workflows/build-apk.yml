@@ -19,10 +19,8 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install SDK components (Android 14 / API 35)
+      # ubuntu-latest 自带 Android SDK（ANDROID_HOME 已配置、sdkmanager 在 PATH、许可已接受）
+      - name: Install SDK components (API 35)
         run: |
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
           sdkmanager --install "platforms;android-35" "build-tools;35.0.0" "platform-tools"
