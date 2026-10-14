@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="window_light_status_bar">false</bool>
+    <color name="on_surface">#FFE4E4E4</color>
+    <color name="surface">#FF121212</color>
+</resources>

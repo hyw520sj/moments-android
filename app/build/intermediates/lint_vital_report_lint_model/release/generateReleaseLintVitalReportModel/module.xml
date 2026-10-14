@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app"
+    name=":app"
+    type="APP"
+    maven="Moments:app:unspecified"
+    agpVersion="8.11.2"
+    buildFolder="build"
+    bootClassPath="D:\software\android-sdk\platforms\android-35\android.jar;D:\software\android-sdk\build-tools\35.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-35"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

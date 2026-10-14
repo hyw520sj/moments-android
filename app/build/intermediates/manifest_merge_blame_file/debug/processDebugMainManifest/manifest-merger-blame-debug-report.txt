@@ -1,0 +1,226 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.moments.android"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:6:22-76
+13    <!-- 仅在 Android 9(API 28) 上保存图片/下载文件到公共目录需要，Android 10 及以上走分区存储 -->
+14    <uses-permission
+14-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:8:5-10:38
+15        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+15-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:9:9-65
+16        android:maxSdkVersion="28" />
+16-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:10:9-35
+17
+18    <uses-feature
+18-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:12:5-14:36
+19        android:name="android.hardware.camera"
+19-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:13:9-47
+20        android:required="false" />
+20-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:14:9-33
+21    <uses-feature
+21-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:15:5-17:36
+22        android:name="android.hardware.touchscreen"
+22-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:16:9-52
+23        android:required="false" />
+23-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:17:9-33
+24
+25    <queries>
+25-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:19:5-33:15
+26        <intent>
+26-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:20:9-22:18
+27            <action android:name="android.intent.action.GET_CONTENT" />
+27-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:21:13-72
+27-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:21:21-69
+28        </intent>
+29        <intent>
+29-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:23:9-25:18
+30            <action android:name="android.media.action.IMAGE_CAPTURE" />
+30-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:24:13-73
+30-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:24:21-70
+31        </intent>
+32        <intent>
+32-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:26:9-28:18
+33            <action android:name="android.media.action.VIDEO_CAPTURE" />
+33-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:27:13-73
+33-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:27:21-70
+34        </intent>
+35        <intent>
+35-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:29:9-32:18
+36            <action android:name="android.intent.action.VIEW" />
+36-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:30:13-65
+36-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:30:21-62
+37
+38            <data android:scheme="https" />
+38-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:31:13-44
+38-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:31:19-41
+39        </intent>
+40    </queries>
+41
+42    <permission
+42-->[androidx.core:core:1.15.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\ced4f7daa99e206e2644916901a8da3f\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+43        android:name="com.moments.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+43-->[androidx.core:core:1.15.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\ced4f7daa99e206e2644916901a8da3f\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+44        android:protectionLevel="signature" />
+44-->[androidx.core:core:1.15.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\ced4f7daa99e206e2644916901a8da3f\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+45
+46    <uses-permission android:name="com.moments.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+46-->[androidx.core:core:1.15.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\ced4f7daa99e206e2644916901a8da3f\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+46-->[androidx.core:core:1.15.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\ced4f7daa99e206e2644916901a8da3f\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
+47
+48    <application
+48-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:35:5-76:19
+49        android:allowBackup="true"
+49-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:36:9-35
+50        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+50-->[androidx.core:core:1.15.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\ced4f7daa99e206e2644916901a8da3f\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+51        android:debuggable="true"
+52        android:extractNativeLibs="false"
+53        android:hardwareAccelerated="true"
+53-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:43:9-43
+54        android:icon="@mipmap/ic_launcher"
+54-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:37:9-43
+55        android:label="@string/app_name"
+55-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:38:9-41
+56        android:networkSecurityConfig="@xml/network_security_config"
+56-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:39:9-69
+57        android:roundIcon="@mipmap/ic_launcher_round"
+57-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:40:9-54
+58        android:supportsRtl="true"
+58-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:41:9-35
+59        android:theme="@style/AppTheme"
+59-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:42:9-40
+60        android:usesCleartextTraffic="true" >
+60-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:44:9-44
+61        <activity
+61-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:47:9-58:20
+62            android:name="com.moments.android.MainActivity"
+62-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:48:13-41
+63            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale"
+63-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:49:13-140
+64            android:exported="true"
+64-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:50:13-36
+65            android:hardwareAccelerated="true"
+65-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:51:13-47
+66            android:launchMode="singleTop"
+66-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:52:13-43
+67            android:windowSoftInputMode="adjustResize" >
+67-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:53:13-55
+68            <intent-filter>
+68-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:54:13-57:29
+69                <action android:name="android.intent.action.MAIN" />
+69-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:55:17-69
+69-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:55:25-66
+70
+71                <category android:name="android.intent.category.LAUNCHER" />
+71-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:56:17-77
+71-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:56:27-74
+72            </intent-filter>
+73        </activity>
+74        <activity
+74-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:60:9-65:58
+75            android:name="com.moments.android.ConfigActivity"
+75-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:61:13-43
+76            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+76-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:62:13-90
+77            android:exported="false"
+77-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:63:13-37
+78            android:parentActivityName="com.moments.android.MainActivity"
+78-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:64:13-55
+79            android:windowSoftInputMode="adjustResize" />
+79-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:65:13-55
+80
+81        <provider
+82            android:name="androidx.core.content.FileProvider"
+82-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:68:13-62
+83            android:authorities="com.moments.android.fileprovider"
+83-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:69:13-64
+84            android:exported="false"
+84-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:70:13-37
+85            android:grantUriPermissions="true" >
+85-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:71:13-47
+86            <meta-data
+86-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:72:13-74:54
+87                android:name="android.support.FILE_PROVIDER_PATHS"
+87-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:73:17-67
+88                android:resource="@xml/file_paths" />
+88-->C:\Users\hyw-agent\WorkBuddy\2026-10-14-06-53-48\moments-android\app\src\main\AndroidManifest.xml:74:17-51
+89        </provider>
+90        <provider
+90-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+91            android:name="androidx.startup.InitializationProvider"
+91-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+92            android:authorities="com.moments.android.androidx-startup"
+92-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+93            android:exported="false" >
+93-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+94            <meta-data
+94-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+95                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+95-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+96                android:value="androidx.startup" />
+96-->[androidx.emoji2:emoji2:1.3.0] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\10a4ffe25ef7cea726c48322eefb4eeb\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+97            <meta-data
+97-->[androidx.lifecycle:lifecycle-process:2.8.7] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\488d64a153b066877d7d4a83bcad4f48\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+98                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+98-->[androidx.lifecycle:lifecycle-process:2.8.7] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\488d64a153b066877d7d4a83bcad4f48\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+99                android:value="androidx.startup" />
+99-->[androidx.lifecycle:lifecycle-process:2.8.7] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\488d64a153b066877d7d4a83bcad4f48\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+100            <meta-data
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+101                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+102                android:value="androidx.startup" />
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+103        </provider>
+104
+105        <receiver
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+106            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+107            android:directBootAware="false"
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+108            android:enabled="true"
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+109            android:exported="true"
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+110            android:permission="android.permission.DUMP" >
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+111            <intent-filter>
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+112                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+113            </intent-filter>
+114            <intent-filter>
+114-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+115                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+116            </intent-filter>
+117            <intent-filter>
+117-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+118                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+119            </intent-filter>
+120            <intent-filter>
+120-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+121                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+121-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+121-->[androidx.profileinstaller:profileinstaller:1.3.1] D:\software\gradle-user-home\caches\9.0-milestone-1\transforms\25202a30474fbb4ca19d487601138270\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+122            </intent-filter>
+123        </receiver>
+124    </application>
+125
+126</manifest>

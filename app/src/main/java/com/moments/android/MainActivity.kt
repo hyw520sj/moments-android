@@ -161,6 +161,11 @@ class MainActivity : AppCompatActivity(), WebHost {
         }
     }
 
+    /** 统一转发到 confirmSslError（弹自签名证书确认框） */
+    private fun confirmSsl(handler: SslErrorHandler, description: String): Boolean {
+        return confirmSslError(handler, description)
+    }
+
     private fun setupBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.moments.android.app-mergeReleaseResources-2:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "D:\\software\\gradle-user-home\\caches\\9.0-milestone-1\\transforms\\ac68819921b612180804383421a7950f\\transformed\\material-1.12.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.moments.android.app-mergeReleaseResources-3:/layout/activity_config.xml",
+        "source": "com.moments.android.app-main-5:/layout/activity_config.xml"
+    },
+    {
+        "merged": "com.moments.android.app-mergeReleaseResources-3:/layout/activity_main.xml",
+        "source": "com.moments.android.app-main-5:/layout/activity_main.xml"
+    }
+]

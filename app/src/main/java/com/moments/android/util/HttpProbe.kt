@@ -5,6 +5,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
@@ -36,7 +37,7 @@ object HttpProbe {
 
             if (trustInvalidCert && connection is HttpsURLConnection) {
                 connection.sslSocketFactory = TrustAllCerts.socketFactory
-                connection.hostnameVerifier = { _, _ -> true }
+                connection.hostnameVerifier = HostnameVerifier { _, _ -> true }
             }
 
             val code = connection.responseCode
