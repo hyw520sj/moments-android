@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <!-- 拍照/录像临时文件，供 FileProvider 授权给系统相机应用写入 -->
-    <cache-path name="camera" path="." />
-</paths>
