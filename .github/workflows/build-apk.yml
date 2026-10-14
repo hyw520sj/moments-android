@@ -1,0 +1,71 @@
+name: Build Android APK
+
+# 云端构建：push 到 main/master 时自动跑，也可以在 Actions 页面手动 Run workflow。
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK components (Android 14 / API 35)
+        run: |
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager --install "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+
+      # 仓库里没有提交 gradle-wrapper.jar（本机下载不到），CI 直接装 Gradle 8.9
+      - name: Install Gradle 8.9
+        run: |
+          curl -sSL -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.9-bin.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-8.9/bin" >> $GITHUB_PATH
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      # 可选：如果你在仓库 Settings → Secrets 里配置了签名信息，就额外产出一个签名好的 release 包
+      - name: Prepare signing (optional)
+        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/moments.keystore"
+          echo "KEYSTORE_PATH=$RUNNER_TEMP/moments.keystore" >> "$GITHUB_ENV"
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> "$GITHUB_ENV"
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> "$GITHUB_ENV"
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> "$GITHUB_ENV"
+
+      - name: Build debug APK
+        run: gradle assembleDebug --no-daemon --stacktrace
+
+      - name: Build release APK
+        run: gradle assembleRelease --no-daemon --stacktrace
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: moments-apk
+          if-no-files-found: error
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/release/*.apk
