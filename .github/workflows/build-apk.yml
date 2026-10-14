@@ -19,11 +19,10 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      # ubuntu-latest 自带 Android SDK（ANDROID_HOME 已配置、sdkmanager 在 PATH、许可已接受）
-      - name: Install SDK components (API 35)
-        run: |
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager --install "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+      # ubuntu-latest 自带 Android SDK 且许可已预接受；
+      # 缺失的 platforms;android-35 / build-tools 由 AGP 在编译时自动下载，无需手动 sdkmanager
+      - name: Show Android SDK
+        run: echo "ANDROID_HOME=$ANDROID_HOME" && ls "$ANDROID_HOME"
 
       # 仓库里没有提交 gradle-wrapper.jar（本机下载不到），CI 直接装 Gradle 8.9
       - name: Install Gradle 8.9
