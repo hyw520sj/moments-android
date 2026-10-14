@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">Moments</string>
 
-    <!-- 通用 -->
+    <!-- 主页面 -->
     <string name="action_refresh">刷新</string>
     <string name="action_reconfigure">服务器配置</string>
     <string name="action_open_in_browser">用浏览器打开</string>
+    <string name="action_login">登录</string>
+    <string name="action_logout">退出登录</string>
     <string name="action_exit">退出</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_calendar">日历</string>
+    <string name="tab_me">我的</string>
+    <string name="tab_compose">发布</string>
+    <string name="fab_compose">写点什么</string>
+    <string name="menu_tags">标签</string>
+    <string name="menu_friend">友链</string>
+    <string name="menu_settings">设置</string>
+    <!-- 底部导航中间占位，位置留给悬浮发布按钮 -->
+    <string name="nav_placeholder" translatable="false"></string>
 
     <!-- 配置页 -->
     <string name="config_title">服务器配置</string>
@@ -28,7 +40,43 @@
     <string name="config_result_fail">连接失败：%1$s</string>
     <string name="config_result_started">已保存配置</string>
 
-    <!-- 主页面 -->
+    <!-- 登录页 -->
+    <string name="login_title">登录 Moments</string>
+    <string name="login_subtitle">用你在网页端的账号登录，登录后可以在 APP 里直接发朋友圈</string>
+    <string name="login_username">用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_submit">登录</string>
+    <string name="login_change_server">换个服务器</string>
+    <string name="login_skip_browse">先随便看看</string>
+    <string name="login_err_empty">请输入用户名和密码</string>
+    <string name="login_ok">登录成功</string>
+    <string name="login_fail">登录失败：%1$s</string>
+
+    <!-- 发布页 -->
+    <string name="compose_title">写朋友圈</string>
+    <string name="compose_hint">这一刻的想法…</string>
+    <string name="compose_tags_hint">标签，用逗号分隔</string>
+    <string name="compose_public">公开</string>
+    <string name="compose_private">私密</string>
+    <string name="compose_pin">置顶</string>
+    <string name="compose_add_image">添加图片</string>
+    <string name="compose_add_video">添加视频</string>
+    <string name="compose_publish">发布</string>
+    <string name="compose_uploading">正在上传 %1$d / %2$d…</string>
+    <string name="compose_saving">正在发布…</string>
+    <string name="compose_empty">写点什么再发吧</string>
+    <string name="compose_too_many_images">最多 9 张图片</string>
+    <string name="compose_success">已发布</string>
+    <string name="compose_failed">发布失败：%1$s</string>
+    <string name="compose_need_login">请先登录</string>
+    <string name="compose_md_bold">粗体</string>
+    <string name="compose_md_quote">引用</string>
+    <string name="compose_md_code">代码</string>
+    <string name="compose_md_link">链接</string>
+    <string name="compose_md_list">列表</string>
+    <string name="compose_attach_title">附件</string>
+
+    <!-- 错误页 -->
     <string name="main_loading">正在加载…</string>
     <string name="main_exit_hint">再按一次返回键退出</string>
     <string name="main_error_title">无法打开 Moments</string>
@@ -55,4 +103,6 @@
     <string name="ctx_open_image">用浏览器打开图片</string>
     <string name="ctx_open_link">用浏览器打开链接</string>
     <string name="ctx_copy_link">复制链接</string>
+    <string name="logged_out">已退出登录</string>
+    <string name="need_server">请先配置服务器</string>
 </resources>

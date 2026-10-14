@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/tab_home" />
+    <item
+        android:id="@+id/nav_compose"
+        android:enabled="true"
+        android:icon="@null"
+        android:title="@string/nav_placeholder" />
+    <item
+        android:id="@+id/nav_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/tab_calendar" />
+    <item
+        android:id="@+id/nav_me"
+        android:icon="@drawable/ic_person"
+        android:title="@string/tab_me" />
+</menu>

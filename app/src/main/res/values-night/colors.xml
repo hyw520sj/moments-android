@@ -1,4 +1,11 @@
 <resources>
-    <color name="surface">#FF121212</color>
-    <color name="on_surface">#FFE4E4E4</color>
+    <color name="bg">#FF0F1115</color>
+    <color name="surface">#FF171A20</color>
+    <color name="surface_variant">#FF20242C</color>
+    <color name="divider">#FF2A2F38</color>
+    <color name="text_primary">#FFE9EBF0</color>
+    <color name="text_secondary">#FF9BA3AF</color>
+    <color name="text_hint">#FF6C7382</color>
+    <color name="brand_soft">#FF1C2440</color>
+    <color name="accent_soft">#FF33251C</color>
 </resources>

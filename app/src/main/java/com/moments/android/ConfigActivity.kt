@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputLayout
 import com.moments.android.data.AppPrefs
@@ -30,6 +33,15 @@ class ConfigActivity : AppCompatActivity() {
 
         prefs = AppPrefs(this)
         setSupportActionBar(binding.toolbar)
+
+        // 与 MainActivity 一致：沉浸式 + 手动补齐状态栏高度
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { v, insets ->
+            val top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            v.setPadding(v.paddingLeft, top, v.paddingRight, v.paddingBottom)
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.toolbar)
 
         if (!isFirstLaunch) {
             binding.toolbar.setNavigationIcon(

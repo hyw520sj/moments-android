@@ -30,6 +30,39 @@ class AppPrefs(context: Context) {
     val trustInvalidCert: Boolean
         get() = prefs.getBoolean(KEY_TRUST_SSL, false)
 
+    // ---------------- 登录态（原生发布/上传用） ----------------
+
+    var token: String
+        get() = prefs.getString(KEY_TOKEN, "") ?: ""
+        private set(value) {
+            prefs.edit { putString(KEY_TOKEN, value) }
+        }
+
+    val username: String
+        get() = prefs.getString(KEY_USERNAME, "") ?: ""
+
+    val userId: Int
+        get() = prefs.getInt(KEY_USER_ID, 0)
+
+    val isLoggedIn: Boolean
+        get() = token.isNotBlank()
+
+    fun saveAuth(token: String, username: String, userId: Int) {
+        prefs.edit {
+            putString(KEY_TOKEN, token)
+            putString(KEY_USERNAME, username)
+            putInt(KEY_USER_ID, userId)
+        }
+    }
+
+    fun clearAuth() {
+        prefs.edit {
+            remove(KEY_TOKEN)
+            remove(KEY_USERNAME)
+            remove(KEY_USER_ID)
+        }
+    }
+
     val isConfigured: Boolean
         get() = host.isNotBlank()
 
@@ -58,6 +91,9 @@ class AppPrefs(context: Context) {
         private const val KEY_PORT = "port"
         private const val KEY_PATH = "path"
         private const val KEY_TRUST_SSL = "trust_invalid_cert"
+        private const val KEY_TOKEN = "auth_token"
+        private const val KEY_USERNAME = "auth_username"
+        private const val KEY_USER_ID = "auth_user_id"
         const val DEFAULT_SCHEME = "http"
         const val DEFAULT_PORT = 3000
     }

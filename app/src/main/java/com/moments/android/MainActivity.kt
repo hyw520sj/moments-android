@@ -33,7 +33,10 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -46,6 +49,7 @@ import com.moments.android.web.MomentsWebViewClient
 import com.moments.android.web.WebHost
 import com.moments.android.web.applyMomentsSettings
 import com.moments.android.web.stripWebViewUserAgent
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 
@@ -67,11 +71,30 @@ class MainActivity : AppCompatActivity(), WebHost {
 
     private var lastBackPressedAt = 0L
     private var pendingDownload: PendingDownload? = null
+    private var syncedWebToken: String? = null
 
     private val configLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (prefs.isConfigured) loadSite() else showError(getString(R.string.main_no_host))
+    }
+
+    private val loginLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK && prefs.isLoggedIn) syncWebLoginState()
+    }
+
+    private val composeLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (binding.webView.url?.let { ServerUrls.isSameSite(prefs.baseUrl, it) } != true) {
+                navigate("/")
+            } else {
+                binding.webView.reload()
+            }
+        }
     }
 
     private val fileChooserLauncher = registerForActivityResult(
@@ -101,8 +124,13 @@ class MainActivity : AppCompatActivity(), WebHost {
         setSupportActionBar(binding.toolbar)
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 
+        // 沉浸式：系统栏留白由我们自己按 insets 精确补齐，根治顶部文字压状态栏
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        setupInsets()
+
         setupWebView()
         setupSwipeRefresh()
+        setupNavigation()
         setupBackPressed()
 
         binding.btnRetry.setOnClickListener { loadSite() }
@@ -134,6 +162,7 @@ class MainActivity : AppCompatActivity(), WebHost {
             onPageFinished = {
                 binding.swipeRefresh.isRefreshing = false
                 CookieManager.getInstance().flush()
+                syncWebLoginState()
             },
             onMainFrameError = { code, description ->
                 showError(
@@ -164,6 +193,120 @@ class MainActivity : AppCompatActivity(), WebHost {
     /** 统一转发到 confirmSslError（弹自签名证书确认框） */
     private fun confirmSsl(handler: SslErrorHandler, description: String): Boolean {
         return confirmSslError(handler, description)
+    }
+
+    /**
+     * 系统栏留白：
+     * - 顶栏按状态栏高度加 top padding（修复标题与状态栏重叠）
+     * - 底栏按导航栏手势区加 bottom padding
+     * - 内容区避开底栏 + 手势区
+     * - 悬浮发布按钮整体上移同样高度
+     */
+    private fun setupInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val statusTop = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            val navBottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+
+            binding.appBar.setPadding(0, statusTop, 0, 0)
+            binding.bottomNav.setPadding(0, 0, 0, navBottom)
+            binding.contentHost.setPadding(0, 0, 0, navBottom + dp(BOTTOM_BAR_HEIGHT_DP))
+
+            val params = binding.fabCompose.layoutParams as? CoordinatorLayout.LayoutParams
+            if (params != null) {
+                params.bottomMargin = dp(FAB_MARGIN_DP) + navBottom
+                binding.fabCompose.layoutParams = params
+            }
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.root)
+    }
+
+    private fun dp(value: Int): Int =
+        (value * resources.displayMetrics.density + 0.5f).toInt()
+
+    private fun setupNavigation() {
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> navigate("/")
+                R.id.nav_calendar -> navigate("/user/calendar")
+                R.id.nav_me ->
+                    if (prefs.isLoggedIn) navigate("/user/${prefs.userId}") else openLogin()
+
+                R.id.nav_compose -> return@setOnItemSelectedListener false
+                else -> return@setOnItemSelectedListener false
+            }
+            true
+        }
+        binding.bottomNav.setOnItemReselectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> binding.webView.reload()
+                else -> Unit
+            }
+        }
+        binding.fabCompose.setOnClickListener { openCompose() }
+    }
+
+    /** 在当前站点内跳转（站内路由交给 SPA 自己渲染） */
+    private fun navigate(path: String) {
+        if (!prefs.isConfigured) {
+            openConfig(firstLaunch = true)
+            return
+        }
+        hideError()
+        val url = prefs.baseUrl.trimEnd('/') + if (path.startsWith("/")) path else "/$path"
+        if (binding.webView.url == url) {
+            binding.webView.reload()
+        } else {
+            binding.webView.loadUrl(url)
+        }
+    }
+
+    private fun openLogin() {
+        if (!prefs.isConfigured) {
+            Toast.makeText(this, R.string.need_server, Toast.LENGTH_SHORT).show()
+            openConfig(firstLaunch = true)
+            return
+        }
+        loginLauncher.launch(Intent(this, LoginActivity::class.java))
+    }
+
+    private fun openCompose() {
+        if (!prefs.isLoggedIn) {
+            openLogin()
+            return
+        }
+        composeLauncher.launch(Intent(this, ComposeActivity::class.java))
+    }
+
+    /**
+     * 原生登录后把 token 写进 WebView 的 localStorage（网页端 useStorage('global')），
+     * 这样页面一刷新就是已登录状态，APP 与网页两种入口行为一致。
+     */
+    private fun syncWebLoginState() {
+        if (!prefs.isLoggedIn) return
+        if (syncedWebToken == prefs.token) return
+        // 只在站点页面内注入，避免 about:blank 上写 localStorage 失败却标记成已同步
+        val current = binding.webView.url ?: return
+        if (!ServerUrls.isSameSite(prefs.baseUrl, current)) return
+        val payload = JSONObject()
+            .put(
+                "userinfo", JSONObject()
+                    .put("token", prefs.token)
+                    .put("username", prefs.username)
+                    .put("id", prefs.userId)
+            )
+            .toString()
+        val js = "try{localStorage.setItem('global', ${JSONObject.quote(payload)});}catch(e){}"
+        syncedWebToken = prefs.token
+        binding.webView.evaluateJavascript(js) { binding.webView.reload() }
+    }
+
+    private fun clearWebLoginState() {
+        prefs.clearAuth()
+        syncedWebToken = null
+        binding.webView.evaluateJavascript(
+            "try{localStorage.removeItem('global');}catch(e){}"
+        ) { binding.webView.reload() }
     }
 
     private fun setupBackPressed() {
@@ -233,11 +376,43 @@ class MainActivity : AppCompatActivity(), WebHost {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_login)?.isVisible = !prefs.isLoggedIn
+        menu.findItem(R.id.action_logout)?.isVisible = prefs.isLoggedIn
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_refresh -> {
                 hideError()
                 binding.webView.reload()
+                true
+            }
+
+            R.id.action_login -> {
+                openLogin()
+                true
+            }
+
+            R.id.action_logout -> {
+                clearWebLoginState()
+                Toast.makeText(this, R.string.logged_out, Toast.LENGTH_SHORT).show()
+                true
+            }
+
+            R.id.action_tags -> {
+                if (prefs.username.isBlank()) openLogin() else navigate("/tags/${prefs.username}")
+                true
+            }
+
+            R.id.action_friend -> {
+                navigate("/friend")
+                true
+            }
+
+            R.id.action_settings -> {
+                navigate("/sys/settings")
                 true
             }
 
@@ -613,5 +788,7 @@ class MainActivity : AppCompatActivity(), WebHost {
         const val CTX_OPEN_IMAGE = 2
         const val CTX_COPY_LINK = 3
         const val CTX_OPEN_LINK = 4
+        const val BOTTOM_BAR_HEIGHT_DP = 56
+        const val FAB_MARGIN_DP = 24
     }
 }

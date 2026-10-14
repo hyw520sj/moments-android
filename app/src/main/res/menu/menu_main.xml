@@ -9,6 +9,32 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_tags"
+        android:title="@string/menu_tags"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_friend"
+        android:title="@string/menu_friend"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/menu_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_login"
+        android:title="@string/action_login"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/action_logout"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
         android:id="@+id/action_reconfigure"
         android:title="@string/action_reconfigure"
         app:showAsAction="never" />
